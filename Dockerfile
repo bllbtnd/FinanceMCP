@@ -8,4 +8,8 @@ FROM mcr.microsoft.com/dotnet/aspnet:11.0
 WORKDIR /app
 COPY --from=build /app/publish .
 EXPOSE 8080
-ENTRYPOINT ["dotnet", "FinanceMCP.dll"]
+
+# Verify the DLL exists during build
+RUN ls -la /app
+
+CMD ["dotnet", "FinanceMCP.dll"]

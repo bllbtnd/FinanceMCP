@@ -2,16 +2,13 @@
 WORKDIR /src
 COPY . .
 RUN dotnet restore FinanceMCP.csproj
-RUN dotnet publish FinanceMCP.csproj -c Release -o /app/publish
+RUN dotnet publish FinanceMCP.csproj -c Release -o /app/publish --self-contained false
 
 FROM mcr.microsoft.com/dotnet/aspnet:11.0
 WORKDIR /app
 COPY --from=build /app/publish .
-
-# Make sure the DLL is present
-RUN ls -la /app && test -f /app/FinanceMCP.dll
-
 EXPOSE 8080
 ENV ASPNETCORE_URLS=http://+:8080
 
-ENTRYPOINT ["dotnet", "/app/FinanceMCP.dll"]
+# Run the executable directly
+ENTRYPOINT ["/app/FinanceMCP"]

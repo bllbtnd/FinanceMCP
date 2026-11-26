@@ -161,6 +161,15 @@ public class FinanceDatabase
         );
     }
 
+    /// <summary>
+    /// Get all accounts with full details.
+    /// </summary>
+    public async Task<List<Account>> GetAllAccountsAsync()
+    {
+        return await _accounts.Find(_ => true).ToListAsync();
+    }
+    
+
     // ========== HELPERS ==========
 
     private static void EnsureCollection(IMongoDatabase db, string name)

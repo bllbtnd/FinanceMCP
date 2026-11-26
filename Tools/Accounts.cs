@@ -26,4 +26,10 @@ internal class Accounts
     {
         return _db.DeleteAccountAsync(accountName);
     }
+    
+    [McpServerTool, Description("List all accounts with full details (name, currency, balance, updatedAt).")]
+    public Task<List<Account>> GetAllAccounts()
+    {
+        return _db.GetAllAccountsAsync();
+    }
 }
